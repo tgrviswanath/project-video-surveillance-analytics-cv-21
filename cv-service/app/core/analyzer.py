@@ -23,7 +23,10 @@ PERSON_CLASS = "person"
 def _get_model():
     global _model
     if _model is None:
-        _model = YOLO(settings.YOLO_MODEL)
+        try:
+            _model = YOLO(settings.YOLO_MODEL)
+        except Exception as e:
+            raise FileNotFoundError(f"Surveillance model unavailable: {e}")
     return _model
 
 
